@@ -4,11 +4,13 @@ use std::io::Result;
 extern crate json;
 
 pub mod read_package_list;
+pub mod help;
 
 fn main() -> Result<()> {
     let args: Vec<String> = (&std::env::args().collect::<Vec<String>>())[1..].to_vec();
-    if args.len() == 0 {
-        println!("Help coming soon!!!");
+    
+    if args.len() == 0 || args[0] == "-h" || args[0] == "--help" || args[0] == "-?" || args[0] == "help" {
+        help::help_prompt();
         return Ok(())
     }
     // dbg!(&args);
