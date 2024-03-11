@@ -1,6 +1,7 @@
 use std::fs::File;
 use std::io::ErrorKind;
 use std::io::BufReader;
+use std::io::prelude::*;
 
 fn read() {
 
