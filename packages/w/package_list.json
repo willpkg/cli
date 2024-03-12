@@ -1,0 +1,11 @@
+{
+    "version": "0.1.0",
+    "letter": "w",
+    "packages": {
+        "will": {
+            "versions": {
+                "0.1.0": ["https://gitlab.com/"]
+            }
+        }
+    }
+}
