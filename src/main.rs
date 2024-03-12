@@ -1,9 +1,9 @@
-use read_package_list::read;
+use record::read;
 use std::io::Result;
 
-extern crate json;
+extern crate serde_json;
 
-pub mod read_package_list;
+pub mod record;
 pub mod help;
 
 fn main() -> Result<()> {
