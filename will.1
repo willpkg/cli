@@ -1,0 +1,31 @@
+.ie \n(.g .ds Aq \(aq
+.el .ds Aq '
+.TH will 1  "will 0.1.0" 
+.SH NAME
+will \- A package manager that willingly installs packages.
+.SH SYNOPSIS
+\fBwill\fR [\fB\-s\fR|\fB\-\-from\-source\fR] [\fB\-b\fR|\fB\-\-from\-binary\fR] [\fB\-\-generate\fR] [\fB\-h\fR|\fB\-\-help\fR] [\fB\-V\fR|\fB\-\-version\fR] 
+.SH DESCRIPTION
+A package manager that willingly installs packages.
+.SH OPTIONS
+.TP
+\fB\-s\fR, \fB\-\-from\-source\fR
+Install packages only from source (abort if no source)
+.TP
+\fB\-b\fR, \fB\-\-from\-binary\fR
+Install packages only from binary (abort if no binary)
+.TP
+\fB\-\-generate\fR
+
+.br
+[\fIpossible values: \fRbash, elvish, fish, powershell, zsh]
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version
+.SH VERSION
+v0.1.0
+.SH AUTHORS
+uimaxbai (https://gitlab.com/uimaxbai)

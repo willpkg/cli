@@ -6,7 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+clap = "4.5.2"
 serde_json = "1.0"
+ansi_term = "0.12"
+clap_complete = "4.5.1"
 
 [[bin]]
 name = "will"
@@ -17,3 +20,8 @@ opt-level = 0
 
 [profile.release]
 opt-level = 3
+
+[build-dependencies]
+clap_mangen = "0.2.20"
+clap_complete = "4.5.1"
+clap = "4.5.2"

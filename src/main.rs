@@ -1,24 +1,33 @@
-use record::read;
-use std::io::Result;
+use std::io::{Result, stdout};
+use clap::Command;
+use clap_complete::{generate, Generator, Shell};
 
 extern crate serde_json;
+extern crate clap;
+extern crate clap_complete;
 
 pub mod record;
-pub mod help;
+pub mod request;
+pub mod cli;
+
+fn print_completions<G: Generator>(gen: G, cmd: &mut Command) {
+    generate(gen, cmd, cmd.get_name().to_string(), &mut stdout());
+}
 
 fn main() -> Result<()> {
-    let args: Vec<String> = (&std::env::args().collect::<Vec<String>>())[1..].to_vec();
+    let matches = cli::build_cli().get_matches();
+
+    if let Some(generator) = matches.get_one::<Shell>("generator").copied() {
+        let mut cmd = cli::build_cli();
+        eprintln!("Generating completion file for {generator}...");
+        print_completions(generator, &mut cmd);
+    }
     
-    if args.len() == 0 || args[0] == "-h" || args[0] == "--help" || args[0] == "-?" || args[0] == "help" {
-        help::help_prompt();
-        return Ok(())
-    }
-    // dbg!(&args);
-    if &args[0] == "i" || &args[0] == "install" {
-        println!("hi you want to install")
-    }
-    if &args[0] == "test" {
-        read().expect("This should work.");
-    }
+    // let iterator = matches.values_of("something");
+    // TODO fix
+    for el in iterator.unwrap() {
+        println!("{:?}", el);
+    };
     Ok(())
 }
+
