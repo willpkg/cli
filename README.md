@@ -4,7 +4,7 @@ A package manager that *willingly* installs your packages.
 
 Written using Rust (yes i'm learning it)
 
-How it should work
+How a typical install *should* work:
 
 ```mermaid
 flowchart TD
