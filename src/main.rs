@@ -25,9 +25,7 @@ fn main() -> Result<()> {
     
     // let iterator = matches.values_of("something");
     // TODO fix
-    for el in iterator.unwrap() {
-        println!("{:?}", el);
-    };
+
     Ok(())
 }
 
