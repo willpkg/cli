@@ -35,11 +35,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             println!("You want to install, {}!", package);
             let url = format!("https://will.okit.works/package?p={package}");
             // TODO fix
-            let resp = reqwest::get(url)
-                .await?
-                .json::<HashMap<String, String>>()
-                .await?;
-            println!("{resp:#?}");
+            let resp = reqwest::get(url).await?;
+            let resp_json = resp.json::<HashMap<String, String>>().await?;
+            // dbg!("{resp:#?}");
+            // TODO status code
         }
     }
     
