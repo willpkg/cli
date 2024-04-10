@@ -27,9 +27,11 @@ pub fn build_cli() -> Command {
                         .arg(Arg::new("source")
                                 .short('s')
                                 .long("from-source")
+                                .num_args(0)
                                 .help("Install packages only from source (abort if no source)"))
                         .arg(Arg::new("binary")
                                 .short('b')
                                 .long("from-binary")
+                                .num_args(0)
                                 .help("Install packages only from binary (abort if no binary)")))
 }

@@ -8,10 +8,13 @@ use ansi_term::{Colour, Style};
 extern crate serde_json;
 extern crate clap;
 extern crate clap_complete;
+extern crate sysinfo;
+extern crate which;
 
 mod record;
 mod request;
 mod cli;
+mod triples;
 
 fn print_completions<G: Generator>(gen: G, cmd: &mut Command) {
     generate(gen, cmd, cmd.get_name().to_string(), &mut stdout());
@@ -33,8 +36,10 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     if let Some(matches) = matches.subcommand_matches("install") {
         if let Some(package) = matches.get_one::<String>("package") {
-            println!("You want to install, {}!", package);
-            let url = format!("https://will.okit.works/package?p={package}");
+            // println!("You want to install, {}!", package);
+            let triple = triples::get_triple()?;
+            // TODO check for source or binary
+            let url = format!("https://will.okit.works/package?p={package}&a={triple}");
             let resp = reqwest::get(url).await?;
             // dbg!("{resp:#?}");
             match resp.status() {
@@ -45,9 +50,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                 reqwest::StatusCode::NOT_FOUND => {
                     let resp_json = &resp.json::<HashMap<String, String>>().await?;
                     if &resp_json["e"] == "Package not found." {
-                        println!("{} Package not found.", Colour::Red.paint(Style::new().bold().paint("Error:").to_string()));
+                        eprintln!("{} Package {} not found.", Colour::Red.paint(Style::new().bold().paint("Error:").to_string()), package);
                     }
                 },
+                reqwest::StatusCode::INTERNAL_SERVER_ERROR => {
+
+                }
                 // TODO add 400 error code and 500 error code lol
                 _ => {
                     panic!("Uh oh! Something unexpected happened.");

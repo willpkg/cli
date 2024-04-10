@@ -20,8 +20,8 @@ flowchart TD
         sourceOrBinary -.- sourceOrBinaryNote[NOTE: by default, will should choose a\nbinary package and only choose\nanything else if binaries don't exist or\nthe user specifies a custom choice.]
         sourceOrBinary --> |yes|binLink[Get binary link from JSON]
         sourceOrBinary --> |no|sourceLink[Get source link from JSON]
-        binLink --> |Packages are preferred to be .tar.gz, \nhowever .tar.xz and .tar.bz2 will be accepted \nBUT .zip will not be accepted|download[Download package and install]
-        sourceLink --> |"`Again, source should be .tar.gz (preferred), .tar.xz or .tar.bz2 (NOT .zip) Packages should automatically be configured to install to /opt/will`"|configure[Configure, build and install]
+        binLink --> |Packages are preferred to be .tar.xz, \nhowever .tar.gz and .tar.bz2 will be accepted \nBUT .zip will not be accepted|download[Download package and install]
+        sourceLink --> |"`Again, source should be .tar.xz (preferred), .tar.gz or .tar.bz2 (NOT .zip) Packages should automatically be configured to install to /opt/will`"|configure[Configure, build and install]
         configure -.-> error[Errors get shown to user]
         download --> addtoDB[Add to packages.json]
         configure --> addtoDB
