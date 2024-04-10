@@ -3,6 +3,7 @@ use clap::Command;
 use clap_complete::{generate, Generator, Shell};
 use std::collections::HashMap;
 use std::result::Result;
+use ansi_term::{Colour, Style};
 
 extern crate serde_json;
 extern crate clap;
@@ -34,11 +35,23 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         if let Some(package) = matches.get_one::<String>("package") {
             println!("You want to install, {}!", package);
             let url = format!("https://will.okit.works/package?p={package}");
-            // TODO fix
             let resp = reqwest::get(url).await?;
-            let resp_json = resp.json::<HashMap<String, String>>().await?;
             // dbg!("{resp:#?}");
-            // TODO status code
+            match resp.status() {
+                reqwest::StatusCode::OK => {
+                    let resp_json = &resp.json::<HashMap<String, String>>().await?;
+                    println!("Success! {:?}", &resp_json);
+                },
+                reqwest::StatusCode::NOT_FOUND => {
+                    let resp_json = &resp.json::<HashMap<String, String>>().await?;
+                    if &resp_json["e"] == "Package not found." {
+                        println!("{} Package not found.", Colour::Red.paint(Style::new().bold().paint("Error:").to_string()));
+                    }
+                },
+                _ => {
+                    panic!("Uh oh! Something unexpected happened.");
+                },
+            };
         }
     }
     
