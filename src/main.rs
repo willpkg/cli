@@ -48,6 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
                         println!("{} Package not found.", Colour::Red.paint(Style::new().bold().paint("Error:").to_string()));
                     }
                 },
+                // TODO add 400 error code and 500 error code lol
                 _ => {
                     panic!("Uh oh! Something unexpected happened.");
                 },
